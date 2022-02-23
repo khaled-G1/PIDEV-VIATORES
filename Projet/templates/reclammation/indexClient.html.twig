@@ -1,0 +1,37 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Reclammation {% endblock %}
+
+{% block body %}
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Objet</th>
+                <th>Message</th>
+                <th>Statut</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclammation in reclammations %}
+            <tr>
+                <td>{{ reclammation.objet }}</td>
+                <td>{{ reclammation.message }}</td>
+                <td>{{ reclammation.statut }}</td>
+                <td>
+                    {% if reclammation.getReponse is not null %}
+                    <a href="{{ path('reponse_showClient', {'id': reclammation.getReponse.id}) }}">Afficher reponse</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Pas de réclammation</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--<a href="{{ path('reclammation_new') }}">Create new</a>-->
+{% endblock %}
