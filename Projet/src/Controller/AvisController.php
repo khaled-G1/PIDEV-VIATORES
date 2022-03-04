@@ -8,6 +8,7 @@ use App\Form\AvisType;
 use App\Form\CommentaireType;
 use App\Repository\AvisRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,16 +18,22 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/avis")
  */
 class AvisController extends AbstractController
-{
-    /**
+{/**
      * @Route("/", name="avis_index", methods={"GET"})
      */
-    public function index(AvisRepository $avisRepository): Response
+
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        $avis = $this->getDoctrine()->getRepository(Avis::class)->findAll();
+
         return $this->render('avis/index.html.twig', [
-            'avis' => $avisRepository->findAll(),
+            'totalAvis' => count($avis),
+            'avis' => $paginator->paginate($avis,
+                $request->query->getInt('page', 1), 5
+            ),
         ]);
     }
+
 
     /**
      * @Route("/new", name="avis_new", methods={"GET", "POST"})
@@ -50,23 +57,23 @@ class AvisController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{id}/newcomment", name="avis_comment", methods={"GET", "POST"})
+     * @Route("/newcomment/{idavis}", name="avis_comment", methods={"GET", "POST"})
      */
-    public function newcommentaire(Request $request, EntityManagerInterface $entityManager): Response
+    public function newcommentaire(Request $request,$idavis, EntityManagerInterface $entityManager): Response
     {
-        $avi = new Commentaire();
-        $form = $this->createForm(CommentaireType::class, $avi);
+        $comment= new Commentaire();
+        $idavis=$this->getDoctrine()->getRepository(Avis::class)->find($idavis);
+        $form = $this->createForm(CommentaireType::class, $comment);
         $form->handleRequest($request);
-
+        $comment=$comment->setAvis($idavis);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($avi);
+            $entityManager->persist($comment);
             $entityManager->flush();
 
             return $this->redirectToRoute('commentaire_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commentaire/new.html.twig', [
-            'avi' => $avi,
             'form' => $form->createView(),
         ]);
     }

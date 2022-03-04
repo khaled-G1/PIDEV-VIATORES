@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-  //  <link href="{{ asset('front/assets/img/logo.png') }}" rel="icon">
+    <link href="{{ asset('front/assets/img/logo.png') }}" rel="icon">
     <link href="{{ asset('front/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -56,7 +56,7 @@
                 <li><a class="nav-link scrollto" href="#hotels">Hotels</a></li>
                 <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
                 <li><a class="nav-link scrollto" href="#supporters">Sponsors</a></li>
-                <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                <li><a class="nav-link scrollto" href={{ path('contact') }}>Contact</a></li>
                 <li><a href="{{ path('app_login') }}" class="nav-link scrollto">LOGIN  </a></li>
                 <li><a href="{{ path('app_register') }}" class="nav-link scrollto">SIGN UP  </a></li>
 

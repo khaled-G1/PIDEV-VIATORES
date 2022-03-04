@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Id avis</th>
+                <th>Nom</th>
 
                 <th>Date_com</th>
                 <th>Comm_avis</th>
@@ -20,7 +21,8 @@
         {% for commentaire in commentaires %}
             <tr>
                 <td>{{ commentaire.id }}</td>
-                <td>{{ commentaire.avis }}</td>
+                <td>{{ commentaire.avis.id }}</td>
+                <td>{{ app.user.nom }}</td>
                 <td>{{ commentaire.dateCom ? commentaire.dateCom|date('Y-m-d') : '' }}</td>
                 <td>{{ commentaire.commAvis }}</td>
                 <td>
@@ -40,4 +42,7 @@
     </table>
 
     <a href="{{ path('commentaire_new') }}">Create new</a>
+    <div class="mt-5">
+        {{ knp_pagination_render(commentaires, 'pagination.html.twig') }}
+    </div>
 {% endblock %}

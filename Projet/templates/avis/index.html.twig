@@ -20,7 +20,7 @@
                 <td>{{ avi.note }}</td>
                 <td>
                     <a href="{{ path('avis_show', {'id': avi.id}) }}">show</a>
-                    <a href="{{ path('avis_comment', {'id': avi.id}) }}">commenter</a>
+                    <a href="{{ path('avis_comment', {'idavis': avi.id}) }}">commenter</a>
                     <a href="{{ path('avis_edit', {'id': avi.id}) }}">edit</a>
                 </td>
             </tr>
@@ -30,7 +30,11 @@
             </tr>
         {% endfor %}
         </tbody>
+
     </table>
 
     <a href="{{ path('avis_new') }}">Create new</a>
+    <div class="mt-5">
+        {{ knp_pagination_render(avis, 'pagination.html.twig') }}
+    </div>
 {% endblock %}

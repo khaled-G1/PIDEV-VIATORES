@@ -11,5 +11,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
+    /**
+     * @Route("/bloque", name="bloq")
+     */
+    public function afficher()
+    {
+
+
+        return $this->render('client/blocage.html.twig');
+    }
 
 }

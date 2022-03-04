@@ -76,8 +76,10 @@ class Commentaire
     }
     public function __toString()
     {
-       return $this->comm_avis;
+       return $this->getCommAvis();
+
     }
+
     public function __construct()
     {
         $this->date_com = new \DateTime('now');
