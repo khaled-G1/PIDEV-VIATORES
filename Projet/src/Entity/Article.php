@@ -24,17 +24,12 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(
-     *  min= 1,
-     *  max= 20,
-     *  minMessage="le title d'un article  doit etre au moins 1 caractere",
-     *  maxMessage="le title d'un article doit etre au plus 2à caracteres"
-     * )
+     *
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string")
      */
     private $image;
 
@@ -46,7 +41,6 @@ class Article
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank
      */
     private $creationDate;
 
@@ -67,9 +61,22 @@ class Article
      */
     private $blogueur;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="article")
+     */
+    private $likes;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pourcentageLike;
+
     public function __construct()
     {
         $this->opinions = new ArrayCollection();
+      //  $this->creationDate = new \DateTime();
+      $this->likes = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -89,12 +96,12 @@ class Article
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 
@@ -181,5 +188,47 @@ class Article
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getArticle() === $this) {
+                $like->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPourcentageLike(): ?int
+    {
+        return $this->pourcentageLike;
+    }
+
+    public function setPourcentageLike(?int $pourcentageLike): self
+    {
+        $this->pourcentageLike = $pourcentageLike;
+
+        return $this;
     }
 }

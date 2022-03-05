@@ -29,9 +29,21 @@ class Blogueur
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="blogueur")
+     */
+    private $likes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="blogueur")
+     */
+    private $signalements;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->likes = new ArrayCollection();
+        $this->signalements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,5 +95,65 @@ class Blogueur
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setBlogueur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getBlogueur() === $this) {
+                $like->setBlogueur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Signalement[]
+     */
+    public function getSignalements(): Collection
+    {
+        return $this->signalements;
+    }
+
+    public function addSignalement(Signalement $signalement): self
+    {
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setBlogueur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getBlogueur() === $this) {
+                $signalement->setBlogueur(null);
+            }
+        }
+
+        return $this;
     }
 }

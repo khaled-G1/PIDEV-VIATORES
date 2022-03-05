@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OpinionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -50,6 +52,22 @@ class Opinion
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbrSignalement = 0;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="opinion")
+     */
+    private $signalements;
+
+    public function __construct()
+    {
+        $this->creationDate = new \DateTime();
+        $this->signalements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -118,5 +136,47 @@ class Opinion
     public function __toString()
     {
         return $this->id;
+    }
+
+    public function getNbrSignalement(): ?int
+    {
+        return $this->nbrSignalement;
+    }
+
+    public function setNbrSignalement(int $nbrSignalement): self
+    {
+        $this->nbrSignalement = $nbrSignalement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Signalement[]
+     */
+    public function getSignalements(): Collection
+    {
+        return $this->signalements;
+    }
+
+    public function addSignalement(Signalement $signalement): self
+    {
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setOpinion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getOpinion() === $this) {
+                $signalement->setOpinion(null);
+            }
+        }
+
+        return $this;
     }
 }
