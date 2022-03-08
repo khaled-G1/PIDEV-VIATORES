@@ -19,6 +19,23 @@ class HotelRepository extends ServiceEntityRepository
         parent::__construct($registry, Hotel::class);
     }
 
+
+    /**
+     *
+     * Requête QueryBuilder
+     */
+    public function listHotelByChambres(){
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.nbChambre','DESC')
+            ->getQuery()
+            ->getResult()
+
+            ;
+
+    }
+
+
+
     // /**
     //  * @return Hotel[] Returns an array of Hotel objects
     //  */

@@ -19,6 +19,22 @@ class ChambreRepository extends ServiceEntityRepository
         parent::__construct($registry, Chambre::class);
     }
 
+
+    /**
+     *
+     * Requête QueryBuilder
+     */
+    public function listchambrebyPrix(){
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.prix','DESC')
+            ->getQuery()
+            ->getResult()
+
+            ;
+
+    }
+
+
     // /**
     //  * @return Chambre[] Returns an array of Chambre objects
     //  */

@@ -4,8 +4,12 @@
 {% block body %}
     <button class="btn btn-success btn-icon-split" ><a href="{{ path('ajouterhotel')  }}"><span class="text" style="color: white">Ajouter </span></a></button>
     <br><br>
-
+<div>
     <p style="100px" > <input  id="myInput"  type="text" placeholder="search">
+        <img src="https://img.icons8.com/nolan/344/google-web-search.png" style="width:50px;height:50px;"/></a>
+
+                    </div>
+
     <table class="table table-bordered" id="t"  width="100%" cellspacing="0">
         <thead>
         <tr>
@@ -45,7 +49,7 @@
                         <span class="text">Modifier</span>
 
                     </a></td>
-                <td><a href="{{ path('supprimerhotel',{'id': i.id}) }}"><img src="https://img.icons8.com/color/48/000000/trash--v2.png"/></a></td>
+                <td><a href="{{ path('supprimerhotel',{'id': i.id}) }}"><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/452/external-delete-multimedia-kiranshastry-gradient-kiranshastry.png" style="width:50px;height:50px;"/></a></td>
 
 
             </tr>
@@ -58,7 +62,7 @@
 
     </table>
 
-
+{{ knp_pagination_render(tablehotels) }}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>

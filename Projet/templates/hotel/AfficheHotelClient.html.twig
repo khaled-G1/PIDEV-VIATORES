@@ -31,8 +31,10 @@
                             <i class="bi bi-star-fill"></i>
                         </div>
                         <p>{{ i.ville  }}</p>
+                        <a class="btn btn-outline-dark mt-auto" href="{{ path('get_hotel_info', {id:i.id}) }}">Ouvrir</a>
+        <a href="{{ path('pdf',{'id': i.id}) }}">   <img   width="30" src="https://cdn-icons-png.flaticon.com/512/337/337946.png">  </a>
+
                     </div>
-                    <a class="btn btn-outline-dark mt-auto" href="{{ path('get_hotel_info', {id:i.id}) }}">Ouvrir</a>
 
                 </div>
                 {% endfor %}

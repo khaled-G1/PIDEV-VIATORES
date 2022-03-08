@@ -54,7 +54,7 @@ class ChambreController extends AbstractController
      * @Route("/afficherchambre",name="afficherchambre")
      */
     public function Affiche(ChambreRepository $repository){
-        $tablechambres=$repository->findAll();
+        $tablechambres=$repository->listchambrebyPrix();
         return $this->render('chambre/afficherchambre.html.twig'
             ,['tablehotels'=>$tablechambres]);
 
