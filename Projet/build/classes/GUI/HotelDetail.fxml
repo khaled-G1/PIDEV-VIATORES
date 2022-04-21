@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="346.0" prefWidth="629.0" style="-fx-background-color: #DFF3FB;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="GUI.HotelDetailController">
+   <children>
+      <Label layoutX="79.0" layoutY="84.0" text="Nom" textFill="#f72a2a">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="nom" layoutX="228.0" layoutY="93.0" text="Label">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="79.0" layoutY="153.0" text="Ville" textFill="#f72a2a">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="238.0" text="Nombre de Chambres" textFill="#f72a2a">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="ville" layoutX="228.0" layoutY="159.0" text="Label">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="nb_chambre" layoutX="413.0" layoutY="247.0" text="Label">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
